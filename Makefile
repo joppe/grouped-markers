@@ -16,6 +16,10 @@ babel:
 	@echo "Transpile javascript"
 	$(PWD)/node_modules/babel/bin/babel.js src --stage 1 --out-dir dist --modules system
 
+babel-watch:
+	@echo "Transpile javascript & watch for changes"
+	$(PWD)/node_modules/babel/bin/babel.js src --stage 1 --out-dir dist --modules system  --watch
+
 bundle:
 	@echo "Bundle the javascript"
 	@node ./bundle.js
