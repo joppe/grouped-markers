@@ -32,6 +32,6 @@ export function fetch(load) {
 
         injectScript(src);
     }).then(() => {
-        return 'module.exports = google.maps';
+        return 'module.exports = google';
     });
 }
