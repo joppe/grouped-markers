@@ -6,7 +6,12 @@ System.config({
     transpiler: 'babel',
 
     map: {
-        'google-maps-loader': 'dist/helper/google-map-loader.js'
+        'google-maps-loader': 'dist/helper/google-map-loader.js',
+        underscore: 'dist/vendor/underscore/underscore.js',
+        backbone: 'dist/vendor/backbone/backbone.js',
+        react: 'dist/node_modules/react/dist/react.js',
+        'react-dom': 'dist/node_modules/react-dom/dist/react-dom.js',
+        jquery: 'dist/vendor/jquery/dist/jquery.js',
     },
 
     paths: {
@@ -14,6 +19,12 @@ System.config({
     },
 
     meta: {
+        backbone: {
+            deps: ['jquery', 'underscore']
+        },
+        'react-dom': {
+            deps: ['react']
+        },
         'google-maps': {
             build: false,
             loader: 'google-maps-loader'
