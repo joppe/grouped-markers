@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {ReactView} from './ReactView.js';
+import {ReactView} from '../react/ReactView.js';
 import google from 'google-maps';
-import {ProjectionHelper} from './../helper/ProjectionHelper.js';
+import {ProjectionHelper} from './../google/ProjectionHelper.js';
 
 /**
  * @class GoogleMap

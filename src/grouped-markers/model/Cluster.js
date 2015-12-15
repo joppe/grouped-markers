@@ -1,6 +1,6 @@
 import Backbone from 'backbone';
 import google from 'google-maps';
-import {Markers} from './../collection/Markers.js';
+import {Markers} from '../grouped-markers/collection/Markers.js';
 import {Bounds} from './../helper/Bounds.js';
 
 /**

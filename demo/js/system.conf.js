@@ -6,7 +6,7 @@ System.config({
     transpiler: 'babel',
 
     map: {
-        'google-maps-loader': 'dist/helper/google-map-loader.js',
+        'google-maps-loader': 'dist/grouped-markers/loader/google-map-loader.js',
         underscore: 'dist/vendor/underscore/underscore.js',
         backbone: 'dist/vendor/backbone/backbone.js',
         react: 'dist/node_modules/react/dist/react.js',

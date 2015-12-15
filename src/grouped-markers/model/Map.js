@@ -1,7 +1,7 @@
 import Backbone from 'backbone';
 import google from 'google-maps';
-import {Markers} from './../collection/Markers.js';
-import {Clusters} from './../collection/Clusters.js';
+import {Markers} from '../grouped-markers/collection/Markers.js';
+import {Clusters} from '../grouped-markers/collection/Clusters.js';
 
 /**
  * @class Map

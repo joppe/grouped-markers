@@ -21,7 +21,7 @@ export class Area {
     /**
      * @param {Number} size
      */
-    constructor(size) {
+    constructor(size = 0) {
         this.size = size;
         this.count = 0;
         this.center = new Point(0, 0);
@@ -45,8 +45,8 @@ export class Area {
         x += point.x;
         y += point.y;
 
-        x /= count;
-        y /= count;
+        x /= this.count;
+        y /= this.count;
 
         this.center.x = x;
         this.center.y = y;

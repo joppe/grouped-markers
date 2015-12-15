@@ -1,3 +1,5 @@
+/*global document*/
+
 /**
  * Inject a script tag that points to the google maps file
  *
@@ -25,7 +27,7 @@ export function fetch(load) {
     src += (src.indexOf('?') < 0) ? '?' : '&';
     src += 'callback=__google_maps_callback__';
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         window['__google_maps_callback__'] = function () {
             resolve();
         };
