@@ -28,7 +28,7 @@ export class Area {
     }
 
     /**
-     * Add a point by recalculating the average position and set it as the center.
+     * Add a point and recalculate the average position and set it as the center.
      *
      * @param {Point} point
      * @returns {Area}
