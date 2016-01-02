@@ -1,6 +1,6 @@
 import Backbone from 'backbone';
 import google from 'google-maps';
-import {Markers} from '../grouped-markers/collection/Markers.js';
+import {Markers} from './../collection/Markers.js';
 import {Bounds} from './../helper/Bounds.js';
 
 /**
@@ -12,6 +12,7 @@ export class Cluster extends Backbone.Model {
      */
     get defaults() {
         return {
+            bounds: null,
             markers: new Markers(),
             gridSize: 100
         };
@@ -24,7 +25,9 @@ export class Cluster extends Backbone.Model {
     constructor(attributes, options) {
         super(attributes, options);
 
-        this.bounds = new Bounds(this.get('projectionHelper'), this.get('gridSize'));
+        this.set({
+            bounds: new Bounds(options.projectionHelper, this.get('gridSize'))
+        });
     }
 
     /**
@@ -32,14 +35,30 @@ export class Cluster extends Backbone.Model {
      * @returns {boolean}
      */
     contains(marker) {
-        return this.bounds.contains(marker.get('latLng'));
+        return this.get('bounds').contains(marker.get('latLng'));
     }
 
     /**
      * @param {Marker} marker
+     * @returns {Cluster}
      */
     addMarker(marker) {
         this.get('markers').add(marker);
-        this.bounds.extend(marker.get('latLng'));
+        this.get('bounds').add(marker.get('latLng'));
+        this.trigger('change:bounds');
+
+        return this;
+    }
+
+    /**
+     * @param {Marker} marker
+     * @returns {Cluster}
+     */
+    removeMarker(marker) {
+        this.get('markers').remove(marker);
+        this.get('bounds').remove(marker.get('latLng'));
+        this.trigger('change:bounds');
+
+        return this;
     }
 }
