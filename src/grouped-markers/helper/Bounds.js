@@ -26,8 +26,29 @@ export class Bounds {
 
     /**
      * @param {google.maps.LatLng} latLng
+     * @returns {Bounds}
      */
-    extend(latLng) {
+    add(latLng) {
+        this.area.addPoint(this.projectionHelper.fromLatLngToPoint(latLng));
+
+        this.updateBounds();
+
+        return this;
+    }
+
+    /**
+     * @param {google.maps.LatLng} latLng
+     * @returns {Bounds}
+     */
+    remove(latLng) {
+        this.area.removePoint(this.projectionHelper.fromLatLngToPoint(latLng));
+
+        this.updateBounds();
+
+        return this;
+    }
+
+    updateBounds() {
         this.bounds = new google.maps.LatLngBounds(
             this.projectionHelper.fromPointToLatLng(this.area.bottomLeft),
             this.projectionHelper.fromPointToLatLng(this.area.topRight)
