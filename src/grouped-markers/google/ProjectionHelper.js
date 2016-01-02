@@ -1,5 +1,5 @@
 import google from 'google-maps';
-import {Point} from '../grouped-markers/helper/Point.js';
+import {Point} from './../helper/Point.js';
 
 /**
  * @class ProjectionHelper
