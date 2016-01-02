@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {ReactView} from '../react/ReactView.js';
+import {ReactView} from './../react/ReactView.js';
 import google from 'google-maps';
 import {ProjectionHelper} from './../google/ProjectionHelper.js';
 
@@ -14,8 +14,17 @@ export class GoogleMap extends ReactView {
     componentDidMount() {
         let el = ReactDOM.findDOMNode(this.refs.map),
             projectionHelper,
-            map = this.props.map,
-            gmap = new google.maps.Map(el, map.get('options'));
+            model = this.props.model,
+            options = this.props.mapOptions,
+            map;
+
+        options.zoom = model.get('zoom');
+        options.center = {
+            lat: model.get('center').lat(),
+            lng: model.get('center').lng()
+        };
+
+        map = new google.maps.Map(el, options);
 
         /**
          * Create an ProjectionHelper, this is needed to translate pixels to latLng and vice versa.
@@ -24,16 +33,19 @@ export class GoogleMap extends ReactView {
          */
         projectionHelper = new ProjectionHelper();
         projectionHelper.onDrawn(() => {
-            map.setProjectionHelper(projectionHelper);
+            model.set({
+                map,
+                projectionHelper
+            });
         });
-        projectionHelper.setMap(gmap);
+        projectionHelper.setMap(map);
     }
 
     /**
      * @returns {XML}
      */
     render() {
-        let size = this.props.size;
+        let size = this.props.mapSize;
 
         return (
             <div className="google-map" ref="map" style={{width: size.width, height: size.height}} />
