@@ -1,5 +1,5 @@
 import React from 'react';
-import {Listener} from '../grouped-markers/helper/Listener.js';
+import {Listener} from './../event/Listener.js';
 
 /**
  * @class ReactView
