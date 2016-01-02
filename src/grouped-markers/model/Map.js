@@ -1,7 +1,7 @@
 import Backbone from 'backbone';
 import google from 'google-maps';
-import {Markers} from '../grouped-markers/collection/Markers.js';
-import {Clusters} from '../grouped-markers/collection/Clusters.js';
+import {Markers} from './../collection/Markers.js';
+import {Clusters} from './../collection/Clusters.js';
 
 /**
  * @class Map
@@ -12,46 +12,32 @@ export class Map extends Backbone.Model {
      */
     get defaults() {
         return {
-            drawable: false,
-            options: {},
+            map: null,
+            projectionHelper: null,
             markers: new Markers(),
             clusters: new Clusters()
         };
     }
 
     /**
-     * @param {ProjectionHelper} projectionHelper
+     * @param {Object} attributes
+     * @param {Object} options
      */
-    setProjectionHelper(projectionHelper) {
-        this.set({
-            projectionHelper,
-            drawable: true
-        });
+    constructor(attributes, options) {
+        super(attributes, options);
+
+        this.listenTo(this.get('markers'), 'reset', this.resetClusters);
+        this.listenTo(this.get('markers'), 'add', this.addMarkerToCluster);
+        this.listenTo(this.get('markers'), 'remove', this.removeMarkerFromCluster);
     }
 
-    /**
-     * @param {Markers} markers
-     */
-    setMarkers(markers) {
-        if (this.get('markers') !== markers) {
-            this.reset();
-
-            this.set('markers', markers);
-
-            this.reindex();
-
-            this.listenTo(this.get('markers'), 'reset', this.reset);
-            this.listenTo(this.get('markers'), 'add', this.addMarkerToCluster);
-        }
-    }
-
-    reset() {
-        this.stopListening(this.get('markers'));
-        this.get('clusters').reset();
+    resetClusters() {
+        // By removing all cluster models we ensure that for each cluster model a "remove" event is fired.
+        this.get('clusters').remove(this.get('clusters').models);
     }
 
     reindex() {
-        this.get('clusters').reset();
+        this.resetClusters();
 
         this.get('markers').each((marker) => {
             this.addMarkerToCluster(marker);
@@ -69,11 +55,26 @@ export class Map extends Backbone.Model {
 
         // Create new cluster
         if (undefined === cluster) {
-            cluster = clusters.add({
+            cluster = clusters.add({}, {
                 projectionHelper: this.get('projectionHelper')
             });
         }
 
         cluster.addMarker(marker);
+    }
+
+    /**
+     * @param {Marker} marker
+     */
+    removeMarkerFromCluster(marker) {
+        let cluster = this.get('clusters').find((cluster) => {
+                return cluster.get('markers').contains(marker);
+            });
+
+        if (undefined === cluster) {
+            throw `Marker not found on any cluster (Map.removeMarkerFromCluster())`;
+        }
+
+        cluster.removeMarker(marker);
     }
 }
