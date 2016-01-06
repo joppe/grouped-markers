@@ -30,7 +30,7 @@ export class ProjectionHelper extends google.maps.OverlayView {
     fromPointToLatLng(point) {
         let projection = this.getProjection();
 
-        return  projection.fromDivPixelToLatLng(point);
+        return projection.fromDivPixelToLatLng(point);
     }
 
     /**
