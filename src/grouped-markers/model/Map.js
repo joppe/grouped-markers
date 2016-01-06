@@ -45,6 +45,13 @@ export class Map extends Backbone.Model {
     }
 
     /**
+     * @param {Array} markers
+     */
+    setMarkers(markers) {
+        this.get('markers').reset(markers);
+    }
+
+    /**
      * @param {Marker} marker
      */
     addMarkerToCluster(marker) {

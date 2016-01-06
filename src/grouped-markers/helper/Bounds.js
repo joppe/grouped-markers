@@ -29,7 +29,7 @@ export class Bounds {
      * @returns {Bounds}
      */
     add(latLng) {
-        this.area.addPoint(this.projectionHelper.fromLatLngToPoint(latLng));
+        this.area.add(this.projectionHelper.fromLatLngToPoint(latLng));
 
         this.updateBounds();
 
@@ -41,7 +41,7 @@ export class Bounds {
      * @returns {Bounds}
      */
     remove(latLng) {
-        this.area.removePoint(this.projectionHelper.fromLatLngToPoint(latLng));
+        this.area.remove(this.projectionHelper.fromLatLngToPoint(latLng));
 
         this.updateBounds();
 

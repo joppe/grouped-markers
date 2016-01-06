@@ -40,7 +40,7 @@ export class Area {
      * @param {Point} point
      * @returns {Area}
      */
-    addPoint(point) {
+    add(point) {
         this.points.push(point);
 
         this.calculateCenter();
@@ -54,7 +54,7 @@ export class Area {
      * @param {Point} point
      * @returns {Area}
      */
-    removePoint(point) {
+    remove(point) {
         let index = this.getIndex(point);
 
         if (-1 === index) {

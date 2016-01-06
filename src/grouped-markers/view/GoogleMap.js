@@ -9,6 +9,15 @@ import {ProjectionHelper} from './../google/ProjectionHelper.js';
  */
 export class GoogleMap extends ReactView {
     /**
+     * @param {Object} props
+     */
+    constructor(props) {
+        super(props);
+
+        // listen to add/remove cluster
+    }
+
+    /**
      * When the element is rendered create the google map.
      */
     componentDidMount() {
