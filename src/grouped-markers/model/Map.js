@@ -12,7 +12,7 @@ export class Map extends Backbone.Model {
      */
     get defaults() {
         return {
-            map: null,
+            gmap: null,
             projectionHelper: null,
             markers: new Markers(),
             clusters: new Clusters()
@@ -31,11 +31,16 @@ export class Map extends Backbone.Model {
         this.listenTo(this.get('markers'), 'remove', this.removeMarkerFromCluster);
     }
 
+    /**
+     * By removing all cluster models we ensure that for each cluster model a "remove" event is fired.
+     */
     resetClusters() {
-        // By removing all cluster models we ensure that for each cluster model a "remove" event is fired.
         this.get('clusters').remove(this.get('clusters').models);
     }
 
+    /**
+     * Remove all clusters and create new ones based on the current markers.
+     */
     reindex() {
         this.resetClusters();
 

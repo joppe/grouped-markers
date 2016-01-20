@@ -1,63 +1,83 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {ReactView} from './../react/ReactView.js';
 import google from 'google-maps';
+import _ from 'underscore';
+import Backbone from 'backbone';
 import {ProjectionHelper} from './../google/ProjectionHelper.js';
 
 /**
  * @class GoogleMap
  */
-export class GoogleMap extends ReactView {
+export class GoogleMap extends Backbone.View {
     /**
-     * @param {Object} props
+     * @returns {string}
      */
-    constructor(props) {
-        super(props);
-
-        // listen to add/remove cluster
+    get className() {
+        return 'c-google-maps';
     }
 
     /**
-     * When the element is rendered create the google map.
+     * @param {Object} options
      */
-    componentDidMount() {
-        let el = ReactDOM.findDOMNode(this.refs.map),
-            projectionHelper,
-            model = this.props.model,
-            options = this.props.mapOptions,
-            map;
+    constructor(options) {
+        super(options);
 
-        options.zoom = model.get('zoom');
-        options.center = {
-            lat: model.get('center').lat(),
-            lng: model.get('center').lng()
-        };
+        this.mapOptions = options.mapOptions;
 
-        map = new google.maps.Map(el, options);
+        this.listenToOnce(this.model, 'change:gmap', this.createProjectionHelper);
+        this.listenToOnce(this.model, 'change:projectionHelper', this.ready);
+    }
 
-        /**
-         * Create an ProjectionHelper, this is needed to translate pixels to latLng and vice versa.
-         *
-         * @link https://developers.google.com/maps/documentation/javascript/reference?hl=en#MapCanvasProjection
-         */
-        projectionHelper = new ProjectionHelper();
+    /**
+     * Create an ProjectionHelper, this is needed to translate pixels to latLng and vice versa.
+     *
+     * @link https://developers.google.com/maps/documentation/javascript/reference?hl=en#MapCanvasProjection
+     */
+    createProjectionHelper() {
+        let projectionHelper = new ProjectionHelper();
+
         projectionHelper.onDrawn(() => {
-            model.set({
-                map,
+            this.model.set({
                 projectionHelper
             });
         });
-        projectionHelper.setMap(map);
+        projectionHelper.setMap(this.model.get('gmap'));
+    }
+
+    ready() {
+        let clusters = this.model.get('clusters');
+
+        this.listenTo(clusters, 'add', this.addCluster);
+        this.listenTo(clusters, 'remove', this.removeCluster);
+        this.listenTo(clusters, 'reset', this.removeClusters);
+
+        this.model.reindex();
+    }
+
+    addCluster() {
+        console.log('addCluster');
+    }
+
+    removeCluster() {
+        console.log('removeCluster');
+    }
+
+    removeClusters() {
+        console.log('removeClusters');
     }
 
     /**
-     * @returns {XML}
+     * @returns {GoogleMap}
      */
     render() {
-        let size = this.props.mapSize;
+        // Create the google map instance and store it in the model
+        this.model.set('gmap', new google.maps.Map(this.el, _.extend(
+            {},
+            {
+                zoom: this.model.get('zoom'),
+                center: this.model.get('center')
+            },
+            this.mapOptions
+        )));
 
-        return (
-            <div className="google-map" ref="map" style={{width: size.width, height: size.height}} />
-        );
+        return this;
     }
 }

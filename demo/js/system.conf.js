@@ -9,8 +9,6 @@ System.config({
         'google-maps-loader': 'dist/vendor/google-maps-loader/dist/google-maps-loader.js',
         underscore: 'dist/vendor/underscore/underscore.js',
         backbone: 'dist/vendor/backbone/backbone.js',
-        react: 'dist/node_modules/react/dist/react.js',
-        'react-dom': 'dist/node_modules/react-dom/dist/react-dom.js',
         jquery: 'dist/vendor/jquery/dist/jquery.js'
     },
 
@@ -22,9 +20,6 @@ System.config({
     meta: {
         backbone: {
             deps: ['jquery', 'underscore']
-        },
-        'react-dom': {
-            deps: ['react']
         },
         'google-maps': {
             build: false,
