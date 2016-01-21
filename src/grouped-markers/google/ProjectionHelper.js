@@ -50,7 +50,7 @@ export class ProjectionHelper extends google.maps.OverlayView {
     }
 
     onAdd() {
-        var panes = this.getPanes();
+        let panes = this.getPanes();
 
         panes.floatPane.appendChild(this.div_);
     }
