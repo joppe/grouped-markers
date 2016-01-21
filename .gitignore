@@ -4,3 +4,4 @@ dist/vendor/
 demo/js/
 !demo/js/system.conf.js
 demo/css/
+!demo/css/.gitkeep
