@@ -60,4 +60,11 @@ export class Cluster extends Backbone.Model {
 
         return this;
     }
+
+    /**
+     * @returns {number}
+     */
+    count() {
+        return this.get('markers').length;
+    }
 }
