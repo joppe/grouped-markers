@@ -2,6 +2,7 @@ import google from 'google-maps';
 import _ from 'underscore';
 import Backbone from 'backbone';
 import {ProjectionHelper} from './../google/ProjectionHelper.js';
+import {Marker} from './Marker.js';
 
 /**
  * @class GoogleMap
@@ -52,16 +53,32 @@ export class GoogleMap extends Backbone.View {
         this.model.reindex();
     }
 
-    addCluster() {
-        console.log('addCluster');
+    /**
+     * @param {Cluster} cluster
+     */
+    addCluster(cluster) {
+        let marker = new Marker({
+                model: cluster
+            });
+
+        marker.setMap(this.model.get('gmap'));
     }
 
-    removeCluster() {
-        console.log('removeCluster');
+    /**
+     * @param {Cluster} cluster
+     */
+    removeCluster(cluster) {
+        cluster.trigger('destroy');
     }
 
-    removeClusters() {
-        console.log('removeClusters');
+    /**
+     * @param {Clusters} clusters
+     * @param {Array} previous
+     */
+    removeMarkers(clusters, previous) {
+        _.each(previous.previousModels, (cluster) => {
+            this.removeMarker(cluster);
+        });
     }
 
     /**

@@ -76,6 +76,15 @@ System.register(['google-maps', './Area.js'], function (_export) {
                     value: function updateBounds() {
                         this.bounds = new google.maps.LatLngBounds(this.projectionHelper.fromPointToLatLng(this.area.bottomLeft), this.projectionHelper.fromPointToLatLng(this.area.topRight));
                     }
+
+                    /**
+                     * @returns {google.maps.LatLng}
+                     */
+                }, {
+                    key: 'getCenter',
+                    value: function getCenter() {
+                        return this.bounds.getCenter();
+                    }
                 }]);
 
                 return Bounds;

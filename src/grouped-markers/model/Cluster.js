@@ -67,4 +67,11 @@ export class Cluster extends Backbone.Model {
     count() {
         return this.get('markers').length;
     }
+
+    /**
+     * @returns {google.maps.LatLng}
+     */
+    getCenter() {
+        return this.get('bounds').getCenter();
+    }
 }

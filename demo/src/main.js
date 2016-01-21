@@ -15,8 +15,15 @@ let model = new Map({
     });
 
 model.on('change:gmap', () => {
-    if (null !== model.get('gmap')) {
-        // start adding markers to the map model
+    let gmap = model.get('gmap');
+
+    if (null !== gmap) {
+        gmap.addListener('click', (event) => {
+            console.log(event.latLng.toString())
+            model.get('markers').add({
+                latLng: event.latLng
+            });
+        });
     }
 });
 

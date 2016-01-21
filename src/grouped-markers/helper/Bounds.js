@@ -54,4 +54,11 @@ export class Bounds {
             this.projectionHelper.fromPointToLatLng(this.area.topRight)
         )
     }
+
+    /**
+     * @returns {google.maps.LatLng}
+     */
+    getCenter() {
+        return this.bounds.getCenter();
+    }
 }

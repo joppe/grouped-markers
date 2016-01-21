@@ -95,6 +95,24 @@ System.register(['backbone', './../collection/Markers.js', './../helper/Bounds.j
 
                         return this;
                     }
+
+                    /**
+                     * @returns {number}
+                     */
+                }, {
+                    key: 'count',
+                    value: function count() {
+                        return this.get('markers').length;
+                    }
+
+                    /**
+                     * @returns {google.maps.LatLng}
+                     */
+                }, {
+                    key: 'getCenter',
+                    value: function getCenter() {
+                        return this.get('bounds').getCenter();
+                    }
                 }]);
 
                 return Cluster;

@@ -1,11 +1,11 @@
-System.register(['google-maps', 'underscore', 'backbone', './../google/ProjectionHelper.js'], function (_export) {
+System.register(['google-maps', 'underscore', 'backbone', './../google/ProjectionHelper.js', './Marker.js'], function (_export) {
 
     /**
      * @class GoogleMap
      */
     'use strict';
 
-    var google, _, Backbone, ProjectionHelper, GoogleMap;
+    var google, _, Backbone, ProjectionHelper, Marker, GoogleMap;
 
     var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
@@ -24,6 +24,8 @@ System.register(['google-maps', 'underscore', 'backbone', './../google/Projectio
             Backbone = _backbone['default'];
         }, function (_googleProjectionHelperJs) {
             ProjectionHelper = _googleProjectionHelperJs.ProjectionHelper;
+        }, function (_MarkerJs) {
+            Marker = _MarkerJs.Marker;
         }],
         execute: function () {
             GoogleMap = (function (_Backbone$View) {
@@ -86,20 +88,41 @@ System.register(['google-maps', 'underscore', 'backbone', './../google/Projectio
 
                         this.model.reindex();
                     }
+
+                    /**
+                     * @param {Cluster} cluster
+                     */
                 }, {
                     key: 'addCluster',
-                    value: function addCluster() {
-                        console.log('addCluster');
+                    value: function addCluster(cluster) {
+                        var marker = new Marker({
+                            model: cluster
+                        });
+
+                        marker.setMap(this.model.get('gmap'));
                     }
+
+                    /**
+                     * @param {Cluster} cluster
+                     */
                 }, {
                     key: 'removeCluster',
-                    value: function removeCluster() {
-                        console.log('removeCluster');
+                    value: function removeCluster(cluster) {
+                        cluster.trigger('destroy');
                     }
+
+                    /**
+                     * @param {Clusters} clusters
+                     * @param {Array} previous
+                     */
                 }, {
-                    key: 'removeClusters',
-                    value: function removeClusters() {
-                        console.log('removeClusters');
+                    key: 'removeMarkers',
+                    value: function removeMarkers(clusters, previous) {
+                        var _this2 = this;
+
+                        _.each(previous.previousModels, function (cluster) {
+                            _this2.removeMarker(cluster);
+                        });
                     }
 
                     /**
