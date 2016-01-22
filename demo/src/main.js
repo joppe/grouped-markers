@@ -19,7 +19,6 @@ model.on('change:gmap', () => {
 
     if (null !== gmap) {
         gmap.addListener('click', (event) => {
-            console.log(event.latLng.toString())
             model.get('markers').add({
                 latLng: event.latLng
             });
