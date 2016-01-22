@@ -14,11 +14,13 @@ export class Marker extends Backbone.View {
      */
     constructor(options) {
         super(options);
-        console.log(this.model.getCenter().lat(), this.model.getCenter().lng(), this.$el);
+
         this.marker = new CustomMarker(this.model.getCenter(), this.$el);
 
         this.listenTo(this.model, 'destroy', this.remove);
         this.listenTo(this.model.get('markers'), 'add', this.update);
+
+        this.update();
     }
 
     /**
@@ -29,7 +31,7 @@ export class Marker extends Backbone.View {
     }
 
     update() {
-        this.$el.html(`# markers clustered: ${this.model.count()}`);
+        this.$el.html(this.model.count());
     }
 
     remove() {
