@@ -2,6 +2,7 @@ import Backbone from 'backbone';
 import google from 'google-maps';
 import {Markers} from './../collection/Markers.js';
 import {Clusters} from './../collection/Clusters.js';
+import {Cluster} from './Cluster.js';
 
 /**
  * @class Map
@@ -67,12 +68,15 @@ export class Map extends Backbone.Model {
 
         // Create new cluster
         if (undefined === cluster) {
-            cluster = clusters.add({}, {
+            cluster = new Cluster({}, {
                 projectionHelper: this.get('projectionHelper')
             });
-        }
+            cluster.addMarker(marker);
 
-        cluster.addMarker(marker);
+            clusters.add(cluster);
+        } else {
+            cluster.addMarker(marker);
+        }
     }
 
     /**
