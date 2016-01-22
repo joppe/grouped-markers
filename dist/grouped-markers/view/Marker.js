@@ -40,11 +40,13 @@ System.register(['backbone', './../google/Marker.js'], function (_export) {
                     _classCallCheck(this, Marker);
 
                     _get(Object.getPrototypeOf(Marker.prototype), 'constructor', this).call(this, options);
-                    console.log(this.model.getCenter().lat(), this.model.getCenter().lng(), this.$el);
+
                     this.marker = new CustomMarker(this.model.getCenter(), this.$el);
 
                     this.listenTo(this.model, 'destroy', this.remove);
                     this.listenTo(this.model.get('markers'), 'add', this.update);
+
+                    this.update();
                 }
 
                 /**
@@ -59,7 +61,7 @@ System.register(['backbone', './../google/Marker.js'], function (_export) {
                 }, {
                     key: 'update',
                     value: function update() {
-                        this.$el.html('# markers clustered: ' + this.model.count());
+                        this.$el.html(this.model.count());
                     }
                 }, {
                     key: 'remove',

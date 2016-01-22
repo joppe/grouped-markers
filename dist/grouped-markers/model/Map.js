@@ -1,11 +1,11 @@
-System.register(['backbone', 'google-maps', './../collection/Markers.js', './../collection/Clusters.js'], function (_export) {
+System.register(['backbone', 'google-maps', './../collection/Markers.js', './../collection/Clusters.js', './Cluster.js'], function (_export) {
 
     /**
      * @class Map
      */
     'use strict';
 
-    var Backbone, google, Markers, Clusters, Map;
+    var Backbone, google, Markers, Clusters, Cluster, Map;
 
     var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
@@ -24,6 +24,8 @@ System.register(['backbone', 'google-maps', './../collection/Markers.js', './../
             Markers = _collectionMarkersJs.Markers;
         }, function (_collectionClustersJs) {
             Clusters = _collectionClustersJs.Clusters;
+        }, function (_ClusterJs) {
+            Cluster = _ClusterJs.Cluster;
         }],
         execute: function () {
             Map = (function (_Backbone$Model) {
@@ -107,12 +109,15 @@ System.register(['backbone', 'google-maps', './../collection/Markers.js', './../
 
                         // Create new cluster
                         if (undefined === cluster) {
-                            cluster = clusters.add({}, {
+                            cluster = new Cluster({}, {
                                 projectionHelper: this.get('projectionHelper')
                             });
-                        }
+                            cluster.addMarker(marker);
 
-                        cluster.addMarker(marker);
+                            clusters.add(cluster);
+                        } else {
+                            cluster.addMarker(marker);
+                        }
                     }
 
                     /**
