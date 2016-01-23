@@ -18,6 +18,7 @@ export class Marker extends Backbone.View {
         this.marker = new CustomMarker(this.model.getCenter(), this.$el);
 
         this.listenTo(this.model, 'destroy', this.remove);
+        this.listenTo(this.model, 'change:bounds', this.position);
         this.listenTo(this.model.get('markers'), 'add', this.update);
 
         this.update();
@@ -28,6 +29,10 @@ export class Marker extends Backbone.View {
      */
     setMap(gmap) {
         this.marker.setMap(gmap);
+    }
+
+    position() {
+        this.marker.setLatLng(this.model.getCenter());
     }
 
     update() {
