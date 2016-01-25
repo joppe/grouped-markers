@@ -2,7 +2,7 @@ import google from 'google-maps';
 import _ from 'underscore';
 import Backbone from 'backbone';
 import {ProjectionHelper} from './../google/ProjectionHelper.js';
-import {Marker} from './Marker.js';
+import {ClusterMarker} from './ClusterMarker.js';
 
 /**
  * @class GoogleMap
@@ -57,7 +57,7 @@ export class GoogleMap extends Backbone.View {
      * @param {Cluster} cluster
      */
     addCluster(cluster) {
-        let marker = new Marker({
+        let marker = new ClusterMarker({
                 model: cluster
             });
 
@@ -85,15 +85,21 @@ export class GoogleMap extends Backbone.View {
      * @returns {GoogleMap}
      */
     render() {
-        // Create the google map instance and store it in the model
-        this.model.set('gmap', new google.maps.Map(this.el, _.extend(
+        let gmap = new google.maps.Map(this.el, _.extend(
             {},
             {
                 zoom: this.model.get('zoom'),
                 center: this.model.get('center')
             },
             this.mapOptions
-        )));
+        ));
+
+        google.maps.event.addListener(gmap, 'zoom_changed', () => {
+            this.model.reindex();
+        });
+
+        // Create the google map instance and store it in the model
+        this.model.set('gmap', gmap);
 
         return this;
     }
