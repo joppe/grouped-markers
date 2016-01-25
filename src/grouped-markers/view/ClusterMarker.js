@@ -1,7 +1,7 @@
 import Backbone from 'backbone';
 import {Marker as CustomMarker} from './../google/Marker.js';
 
-export class Marker extends Backbone.View {
+export class ClusterMarker extends Backbone.View {
     /**
      * @returns {string}
      */
@@ -36,7 +36,13 @@ export class Marker extends Backbone.View {
     }
 
     update() {
-        this.$el.html(this.model.count());
+        let count = this.model.count();
+
+        if (0 === count) {
+            this.model.trigger('destroy');
+        } else {
+            this.$el.html(`<div class="c-marker__count">${count}</div>`);
+        }
     }
 
     remove() {
