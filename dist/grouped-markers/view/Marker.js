@@ -44,6 +44,7 @@ System.register(['backbone', './../google/Marker.js'], function (_export) {
                     this.marker = new CustomMarker(this.model.getCenter(), this.$el);
 
                     this.listenTo(this.model, 'destroy', this.remove);
+                    this.listenTo(this.model, 'change:bounds', this.position);
                     this.listenTo(this.model.get('markers'), 'add', this.update);
 
                     this.update();
@@ -57,6 +58,11 @@ System.register(['backbone', './../google/Marker.js'], function (_export) {
                     key: 'setMap',
                     value: function setMap(gmap) {
                         this.marker.setMap(gmap);
+                    }
+                }, {
+                    key: 'position',
+                    value: function position() {
+                        this.marker.setLatLng(this.model.getCenter());
                     }
                 }, {
                     key: 'update',

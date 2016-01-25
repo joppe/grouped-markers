@@ -1,11 +1,11 @@
-System.register(['google-maps', 'underscore', 'backbone', './../google/ProjectionHelper.js', './Marker.js'], function (_export) {
+System.register(['google-maps', 'underscore', 'backbone', './../google/ProjectionHelper.js', './ClusterMarker.js'], function (_export) {
 
     /**
      * @class GoogleMap
      */
     'use strict';
 
-    var google, _, Backbone, ProjectionHelper, Marker, GoogleMap;
+    var google, _, Backbone, ProjectionHelper, ClusterMarker, GoogleMap;
 
     var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
@@ -24,8 +24,8 @@ System.register(['google-maps', 'underscore', 'backbone', './../google/Projectio
             Backbone = _backbone['default'];
         }, function (_googleProjectionHelperJs) {
             ProjectionHelper = _googleProjectionHelperJs.ProjectionHelper;
-        }, function (_MarkerJs) {
-            Marker = _MarkerJs.Marker;
+        }, function (_ClusterMarkerJs) {
+            ClusterMarker = _ClusterMarkerJs.ClusterMarker;
         }],
         execute: function () {
             GoogleMap = (function (_Backbone$View) {
@@ -95,7 +95,7 @@ System.register(['google-maps', 'underscore', 'backbone', './../google/Projectio
                 }, {
                     key: 'addCluster',
                     value: function addCluster(cluster) {
-                        var marker = new Marker({
+                        var marker = new ClusterMarker({
                             model: cluster
                         });
 
@@ -131,11 +131,19 @@ System.register(['google-maps', 'underscore', 'backbone', './../google/Projectio
                 }, {
                     key: 'render',
                     value: function render() {
-                        // Create the google map instance and store it in the model
-                        this.model.set('gmap', new google.maps.Map(this.el, _.extend({}, {
+                        var _this3 = this;
+
+                        var gmap = new google.maps.Map(this.el, _.extend({}, {
                             zoom: this.model.get('zoom'),
                             center: this.model.get('center')
-                        }, this.mapOptions)));
+                        }, this.mapOptions));
+
+                        google.maps.event.addListener(gmap, 'zoom_changed', function () {
+                            _this3.model.reindex();
+                        });
+
+                        // Create the google map instance and store it in the model
+                        this.model.set('gmap', gmap);
 
                         return this;
                     }
