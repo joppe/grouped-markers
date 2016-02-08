@@ -34,22 +34,22 @@ describe('Area', () => {
         expect(a.center.x).toBe(0);
         expect(a.center.y).toBe(0);
 
-        a.addPoint(new Point(1, 1));
+        a.add(new Point(1, 1));
 
         expect(a.center.x).toBe(1);
         expect(a.center.y).toBe(1);
 
-        a.addPoint(new Point(1, 1));
+        a.add(new Point(1, 1));
 
         expect(a.center.x).toBe(1);
         expect(a.center.y).toBe(1);
 
-        a.addPoint(new Point(4, 4));
+        a.add(new Point(4, 4));
 
         expect(a.center.x).toBe(2);
         expect(a.center.y).toBe(2);
 
-        a.removePoint(new Point(4, 4));
+        a.remove(new Point(4, 4));
 
         expect(a.center.x).toBe(1);
         expect(a.center.y).toBe(1);
@@ -58,9 +58,9 @@ describe('Area', () => {
     it('Find a points index', () => {
         let a = new Area();
 
-        a.addPoint(new Point(1, 1));
-        a.addPoint(new Point(1, 1));
-        a.addPoint(new Point(4, 4));
+        a.add(new Point(1, 1));
+        a.add(new Point(1, 1));
+        a.add(new Point(4, 4));
 
         expect(a.getIndex(new Point(1, 1))).toBe(0);
     });
@@ -69,13 +69,13 @@ describe('Area', () => {
         let a = new Area();
 
         expect(a.length).toBe(0);
-        a.addPoint(new Point(1, 1));
+        a.add(new Point(1, 1));
         expect(a.length).toBe(1);
-        a.addPoint(new Point(1, 1));
+        a.add(new Point(1, 1));
         expect(a.length).toBe(2);
-        a.addPoint(new Point(4, 4));
+        a.add(new Point(4, 4));
         expect(a.length).toBe(3);
-        a.removePoint(new Point(4, 4));
+        a.remove(new Point(4, 4));
         expect(a.length).toBe(2);
     });
 });
