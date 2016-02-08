@@ -29,7 +29,7 @@ export class Marker extends google.maps.OverlayView {
 
         this.$div.css({
             left: position.x - (this.getWidth() / 2),
-            top: position.y - this.getHeight()
+            top: position.y - (this.getHeight() / 2)
         });
     }
 
