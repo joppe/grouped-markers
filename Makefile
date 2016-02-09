@@ -32,7 +32,11 @@ bundle:
 	@echo "Bundle the javascript"
 	@node ./bundle.js
 
-setup: npm bower babel
+sass:
+	@echo "Compile sass"
+	sass --force --scss demo/sass/main.scss demo/css/main.css
+
+setup: npm bower babel babel-demo sass
 
 karma_test:
 	@echo "Start karma test"
