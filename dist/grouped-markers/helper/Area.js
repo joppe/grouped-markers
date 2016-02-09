@@ -24,7 +24,7 @@ System.register(['./Point.js'], function (_export) {
                      * @returns {Point}
                      */
                     get: function get() {
-                        return this.center.add(new Point(this.size, -this.size));
+                        return this.center.add(new Point(this.size / 2, -this.size / 2));
                     }
 
                     /**
@@ -33,7 +33,7 @@ System.register(['./Point.js'], function (_export) {
                 }, {
                     key: 'bottomLeft',
                     get: function get() {
-                        return this.center.add(new Point(-this.size, this.size));
+                        return this.center.add(new Point(-this.size / 2, this.size / 2));
                     }
 
                     /**
