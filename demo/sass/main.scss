@@ -21,10 +21,10 @@ $marker-size: 50px;
     &:before {
         content: '';
         position: absolute;
-        left: ($marker-size / 2) - ((2 * $grid-size) / 2);
-        top: ($marker-size / 2) - ((2 * $grid-size) / 2);
-        width: 2 * $grid-size;
-        height: 2 * $grid-size;
+        left: ($marker-size / 2) - ($grid-size / 2);
+        top: ($marker-size / 2) - ($grid-size / 2);
+        width: $grid-size;
+        height: $grid-size;
         border: 2px solid rgba(0, 0, 255, 0.4);
     }
 }
