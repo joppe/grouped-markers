@@ -8,14 +8,14 @@ export class Area {
      * @returns {Point}
      */
     get topRight() {
-        return this.center.add(new Point(this.size, -this.size));
+        return this.center.add(new Point(this.size / 2, -this.size / 2));
     }
 
     /**
      * @returns {Point}
      */
     get bottomLeft() {
-        return this.center.add(new Point(-this.size, this.size));
+        return this.center.add(new Point(-this.size / 2, this.size / 2));
     }
 
     /**
