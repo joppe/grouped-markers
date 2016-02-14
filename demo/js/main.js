@@ -1,4 +1,4 @@
-System.register(['google-maps', 'jquery', 'grouped-markers/model/Map.js', 'grouped-markers/view/GoogleMap.js'], function (_export) {
+System.register(['google-maps', 'jquery', 'marker-clusterer/model/Map.js', 'grouped-markers/view/GoogleMap.js'], function (_export) {
     'use strict';
 
     var google, $, Map, GoogleMap, model, view;

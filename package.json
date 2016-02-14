@@ -1,5 +1,5 @@
 {
-    "name": "grouped-markers",
+    "name": "marker-clusterer",
     "private": true,
     "version": "1.0.0",
     "description": "Grouping google markers",
@@ -13,7 +13,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/joppe/grouped-markers.git"
+        "url": "https://github.com/joppe/marker-clusterer.git"
     },
     "keywords": [
         "js",

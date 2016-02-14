@@ -8,7 +8,7 @@ builder.config({
 });
 
 builder
-    .buildStatic('src/grouped-markers/*', 'dist/grouped-markers.min.js', {
+    .buildStatic('src/marker-clusterer/*', 'dist/marker-clusterer.min.js', {
         minify: true,
         sourceMaps: true,
         format: 'amd'

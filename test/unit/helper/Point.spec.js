@@ -1,6 +1,6 @@
 /*global describe, it, expect*/
 
-import {Point} from 'grouped-markers/helper/Point.js';
+import {Point} from 'marker-clusterer/helper/Point.js';
 
 describe('Point', () => {
     'use strict';

@@ -60,7 +60,7 @@ module.exports = function (config) {
 
                 paths: {
                     'babel': 'node_modules/babel-core/browser.js',
-                    'grouped-markers/*': 'src/grouped-markers/*',
+                    'marker-clusterer/*': 'src/marker-clusterer/*',
                     'google-maps': 'http://localhost/google-maps/js?v=3.exp&sensor=true&language=nl'
                 }
             },

@@ -1,8 +1,8 @@
 .idea/
 .sass-cache
-node_modules/
-dist/vendor/
-demo/js/
+node_modules
+dist/vendor
+demo/js
 !demo/js/system.conf.js
-demo/css/
+demo/css
 !demo/css/.gitkeep

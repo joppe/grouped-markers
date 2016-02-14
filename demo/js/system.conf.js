@@ -13,7 +13,7 @@ System.config({
     },
 
     paths: {
-        'grouped-markers/*': 'dist/grouped-markers/*',
+        'marker-clusterer/*': 'dist/marker-clusterer/*',
         'google-maps': 'http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true&language=nl'
     },
 
