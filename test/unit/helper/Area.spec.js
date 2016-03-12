@@ -22,10 +22,10 @@ describe('Area', () => {
 
         expect(a.center.x).toBe(0);
         expect(a.center.y).toBe(0);
-        expect(a.topRight.x).toBe(5);
-        expect(a.topRight.y).toBe(-5);
-        expect(a.bottomLeft.x).toBe(-5);
-        expect(a.bottomLeft.y).toBe(5);
+        expect(a.topRight.x).toBe(2.5);
+        expect(a.topRight.y).toBe(-2.5);
+        expect(a.bottomLeft.x).toBe(-2.5);
+        expect(a.bottomLeft.y).toBe(2.5);
     });
 
     it('The center should always be the average', () => {
