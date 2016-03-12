@@ -1,4 +1,4 @@
-System.register(['google-maps', 'jquery', 'marker-clusterer/model/Map.js', 'grouped-markers/view/GoogleMap.js'], function (_export) {
+System.register(['google-maps', 'jquery', 'marker-clusterer/model/Map.js', './view/GoogleMap.js'], function (_export) {
     'use strict';
 
     var google, $, Map, GoogleMap, model, view;
@@ -7,10 +7,10 @@ System.register(['google-maps', 'jquery', 'marker-clusterer/model/Map.js', 'grou
             google = _googleMaps['default'];
         }, function (_jquery) {
             $ = _jquery['default'];
-        }, function (_groupedMarkersModelMapJs) {
-            Map = _groupedMarkersModelMapJs.Map;
-        }, function (_groupedMarkersViewGoogleMapJs) {
-            GoogleMap = _groupedMarkersViewGoogleMapJs.GoogleMap;
+        }, function (_markerClustererModelMapJs) {
+            Map = _markerClustererModelMapJs.Map;
+        }, function (_viewGoogleMapJs) {
+            GoogleMap = _viewGoogleMapJs.GoogleMap;
         }],
         execute: function () {
             model = new Map({
