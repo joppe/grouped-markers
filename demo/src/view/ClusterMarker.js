@@ -1,6 +1,9 @@
 import Backbone from 'backbone';
-import {Marker as CustomMarker} from './../google/Marker.js';
+import {Marker as CustomMarker} from 'marker-clusterer/google/Marker.js';
 
+/**
+ * @class ClusterMarker
+ */
 export class ClusterMarker extends Backbone.View {
     /**
      * @returns {string}
