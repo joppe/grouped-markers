@@ -6,10 +6,17 @@ The script uses Backbone to handle all data.
 
 ## Usage
 
-- Create a map model with at least a center and a zoom attribute.
+- Include the script `dist/marker-clusterer.min.js` in your project.
+- Create a map model with at least a center latitude/longitude and a zoom attribute.
 - Create a map view, supply the model and optionally provide [map options](https://developers.google.com/maps/documentation/javascript/reference#MapOptions).
 - Listen to the `change:gmap` event on the view. When the `gmap` is set you are able to add markers to the map model. Add the markers by calling the add method of the `markers` attribute, like: `model.get('markers').add({latLng: new google.maps.LatLng(51.8939035, 4.5209467)})`.
 
+If you want to run the tests run the following commands:
+
+- `make setup`
+- `make karma_test`
+
+See the demo for an example implementation.
 
 ## Example
 
