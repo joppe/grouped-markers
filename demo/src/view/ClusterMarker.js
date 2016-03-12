@@ -18,11 +18,12 @@ export class ClusterMarker extends Backbone.View {
     constructor(options) {
         super(options);
 
+        this.mapModel = options.mapModel;
         this.marker = new CustomMarker(this.model.getCenter(), this.$el);
 
         this.listenTo(this.model, 'destroy', this.remove);
         this.listenTo(this.model, 'change:bounds', this.position);
-        this.listenTo(this.model.get('markers'), 'add', this.update);
+        this.listenTo(this.model.get('markers'), 'add remove reset', this.update);
 
         this.update();
     }
@@ -32,6 +33,14 @@ export class ClusterMarker extends Backbone.View {
      */
     setMap(gmap) {
         this.marker.setMap(gmap);
+
+        this.el.addEventListener('contextmenu', (event) => {
+            event.preventDefault();
+
+            let marker = this.model.get('markers').last();
+
+            this.mapModel.get('markers').remove(marker)
+        });
     }
 
     position() {
