@@ -1,17 +1,12 @@
 /*global require, console*/
 
 var Builder = require('systemjs-builder'),
-    builder = new Builder();
-
-builder.config({
-    transpiler: 'babel'
-});
+    builder = new Builder('./', 'demo/js/system.conf.js');
 
 builder
-    .buildStatic('src/marker-clusterer/*', 'dist/marker-clusterer.min.js', {
+    .buildStatic('demo/src/main.js', 'dist/marker-clusterer.min.js', {
         minify: true,
-        sourceMaps: true,
-        format: 'amd'
+        sourceMaps: true
     })
     .then(function () {
         'use strict';
@@ -20,7 +15,6 @@ builder
     })
     .catch(function (err) {
         'use strict';
-
 
         console.log('Build error');
         console.log(err);
