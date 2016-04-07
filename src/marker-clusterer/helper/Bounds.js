@@ -48,11 +48,14 @@ export class Bounds {
         return this;
     }
 
+    /**
+     * Update the boundaries
+     */
     updateBounds() {
         this.bounds = new google.maps.LatLngBounds(
             this.projectionHelper.fromPointToLatLng(this.area.bottomLeft),
             this.projectionHelper.fromPointToLatLng(this.area.topRight)
-        )
+        );
     }
 
     /**

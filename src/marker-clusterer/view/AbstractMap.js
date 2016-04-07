@@ -35,6 +35,9 @@ export class AbstractMap extends Backbone.View {
         projectionHelper.setMap(this.model.get('gmap'));
     }
 
+    /**
+     * All is initialized and ready to use
+     */
     ready() {
         let clusters = this.model.get('clusters');
 
@@ -46,10 +49,11 @@ export class AbstractMap extends Backbone.View {
     }
 
     /**
-     * @param {Cluster} cluster
+     * This method must be implemented by the class that extends this class.
+     * The method get one argument, the cluster that is added.
      */
-    addCluster(cluster) {
-        throw 'The addCluster method must be implemented';
+    addCluster() {
+        throw new Error('The addCluster method must be implemented');
     }
 
     /**
@@ -74,11 +78,9 @@ export class AbstractMap extends Backbone.View {
      */
     render() {
         let gmap = new google.maps.Map(this.el, _.extend({}, {
-                zoom: this.model.get('zoom'),
-                center: this.model.get('center')
-            },
-            this.mapOptions
-        ));
+            zoom: this.model.get('zoom'),
+            center: this.model.get('center')
+        }, this.mapOptions));
 
         google.maps.event.addListener(gmap, 'zoom_changed', () => {
             this.model.reindex();

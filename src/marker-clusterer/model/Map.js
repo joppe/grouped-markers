@@ -1,5 +1,4 @@
 import Backbone from 'backbone';
-import google from 'google-maps';
 import {Markers} from './../collection/Markers.js';
 import {Clusters} from './../collection/Clusters.js';
 import {Cluster} from './Cluster.js';
@@ -62,8 +61,8 @@ export class Map extends Backbone.Model {
      */
     addMarkerToCluster(marker) {
         let clusters = this.get('clusters'),
-            cluster = clusters.find((cluster) => {
-                return cluster.contains(marker);
+            cluster = clusters.find((c) => {
+                return c.contains(marker);
             });
 
         // Create new cluster
@@ -83,12 +82,12 @@ export class Map extends Backbone.Model {
      * @param {Marker} marker
      */
     removeMarkerFromCluster(marker) {
-        let cluster = this.get('clusters').find((cluster) => {
-                return cluster.get('markers').contains(marker);
-            });
+        let cluster = this.get('clusters').find((c) => {
+            return c.get('markers').contains(marker);
+        });
 
         if (undefined === cluster) {
-            throw `Marker not found on any cluster (Map.removeMarkerFromCluster())`;
+            throw new Error('Marker not found on any cluster (Map.removeMarkerFromCluster())');
         }
 
         cluster.removeMarker(marker);

@@ -58,7 +58,7 @@ export class Area {
         let index = this.getIndex(point);
 
         if (-1 === index) {
-            throw `Point not found "${point.toString()}"`;
+            throw new Error(`Point not found "${point.toString()}"`);
         }
 
         this.points.splice(index, 1);
@@ -91,6 +91,9 @@ export class Area {
         return index;
     }
 
+    /**
+     * Calculate the center
+     */
     calculateCenter() {
         let x = 0,
             y = 0;

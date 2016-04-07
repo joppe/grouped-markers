@@ -1,5 +1,8 @@
 import google from 'google-maps';
 
+/**
+ * @class Marker
+ */
 export class Marker extends google.maps.OverlayView {
     /**
      * @param {google.maps.LatLng} latLng
@@ -11,6 +14,8 @@ export class Marker extends google.maps.OverlayView {
         this.latLng = latLng;
 
         this.$div = $div;
+
+        // eslint-disable-next-line no-underscore-dangle
         this.div_ = this.$div.get(0);
     }
 
@@ -23,8 +28,11 @@ export class Marker extends google.maps.OverlayView {
         this.draw();
     }
 
+    /**
+     * Create the html
+     */
     draw() {
-        var projection = this.getProjection(),
+        let projection = this.getProjection(),
             position = projection.fromLatLngToDivPixel(this.latLng);
 
         this.$div.css({
@@ -47,13 +55,21 @@ export class Marker extends google.maps.OverlayView {
         return this.$div.height();
     }
 
+    /**
+     * Executed when the element is added to the DOM
+     */
     onAdd() {
-        var panes = this.getPanes();
+        let panes = this.getPanes();
 
+        // eslint-disable-next-line no-underscore-dangle
         panes.floatPane.appendChild(this.div_);
     }
 
+    /**
+     * Executed when the element is removed from the DOM
+     */
     onRemove() {
+        // eslint-disable-next-line no-underscore-dangle
         this.div_.parentNode.removeChild(this.div_);
     }
 }
