@@ -17,9 +17,9 @@ export class GoogleMap extends AbstractMap {
      */
     addCluster(cluster) {
         let marker = new ClusterMarker({
-                model: cluster,
-                mapModel: this.model
-            });
+            model: cluster,
+            mapModel: this.model
+        });
 
         marker.setMap(this.model.get('gmap'));
     }

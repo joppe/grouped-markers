@@ -67,7 +67,7 @@ export class AbstractMap extends Backbone.View {
      * @param {Clusters} clusters
      * @param {Array} previous
      */
-    removeMarkers(clusters, previous) {
+    removeClusters(clusters, previous) {
         _.each(previous.previousModels, (cluster) => {
             this.removeMarker(cluster);
         });

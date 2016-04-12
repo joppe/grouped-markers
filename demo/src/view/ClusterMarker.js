@@ -39,14 +39,20 @@ export class ClusterMarker extends Backbone.View {
 
             let marker = this.model.get('markers').last();
 
-            this.mapModel.get('markers').remove(marker)
+            this.mapModel.get('markers').remove(marker);
         });
     }
 
+    /**
+     * Position the marker
+     */
     position() {
         this.marker.setLatLng(this.model.getCenter());
     }
 
+    /**
+     * Update the contents
+     */
     update() {
         let count = this.model.count();
 
@@ -57,6 +63,9 @@ export class ClusterMarker extends Backbone.View {
         }
     }
 
+    /**
+     * Remove the element from the map
+     */
     remove() {
         this.stopListening();
         this.marker.setMap(null);
