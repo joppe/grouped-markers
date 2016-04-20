@@ -71,6 +71,10 @@ System.register(['google-maps', './Area.js'], function (_export) {
 
                         return this;
                     }
+
+                    /**
+                     * Update the boundaries
+                     */
                 }, {
                     key: 'updateBounds',
                     value: function updateBounds() {

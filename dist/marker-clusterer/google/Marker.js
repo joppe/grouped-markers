@@ -1,4 +1,8 @@
 System.register(['google-maps'], function (_export) {
+
+    /**
+     * @class Marker
+     */
     'use strict';
 
     var google, Marker;
@@ -32,6 +36,8 @@ System.register(['google-maps'], function (_export) {
                     this.latLng = latLng;
 
                     this.$div = $div;
+
+                    // eslint-disable-next-line no-underscore-dangle
                     this.div_ = this.$div.get(0);
                 }
 
@@ -46,6 +52,10 @@ System.register(['google-maps'], function (_export) {
 
                         this.draw();
                     }
+
+                    /**
+                     * Create the html
+                     */
                 }, {
                     key: 'draw',
                     value: function draw() {
@@ -75,16 +85,26 @@ System.register(['google-maps'], function (_export) {
                     value: function getHeight() {
                         return this.$div.height();
                     }
+
+                    /**
+                     * Executed when the element is added to the DOM
+                     */
                 }, {
                     key: 'onAdd',
                     value: function onAdd() {
                         var panes = this.getPanes();
 
+                        // eslint-disable-next-line no-underscore-dangle
                         panes.floatPane.appendChild(this.div_);
                     }
+
+                    /**
+                     * Executed when the element is removed from the DOM
+                     */
                 }, {
                     key: 'onRemove',
                     value: function onRemove() {
+                        // eslint-disable-next-line no-underscore-dangle
                         this.div_.parentNode.removeChild(this.div_);
                     }
                 }]);

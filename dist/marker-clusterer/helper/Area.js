@@ -89,7 +89,7 @@ System.register(['./Point.js'], function (_export) {
                         var index = this.getIndex(point);
 
                         if (-1 === index) {
-                            throw 'Point not found "' + point.toString() + '"';
+                            throw new Error('Point not found "' + point.toString() + '"');
                         }
 
                         this.points.splice(index, 1);
@@ -123,6 +123,10 @@ System.register(['./Point.js'], function (_export) {
 
                         return index;
                     }
+
+                    /**
+                     * Calculate the center
+                     */
                 }, {
                     key: 'calculateCenter',
                     value: function calculateCenter() {

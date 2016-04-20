@@ -1,11 +1,11 @@
-System.register(['backbone', 'google-maps', './../collection/Markers.js', './../collection/Clusters.js', './Cluster.js'], function (_export) {
+System.register(['backbone', './../collection/Markers.js', './../collection/Clusters.js', './Cluster.js'], function (_export) {
 
     /**
      * @class Map
      */
     'use strict';
 
-    var Backbone, google, Markers, Clusters, Cluster, Map;
+    var Backbone, Markers, Clusters, Cluster, Map;
 
     var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
@@ -18,8 +18,6 @@ System.register(['backbone', 'google-maps', './../collection/Markers.js', './../
     return {
         setters: [function (_backbone) {
             Backbone = _backbone['default'];
-        }, function (_googleMaps) {
-            google = _googleMaps['default'];
         }, function (_collectionMarkersJs) {
             Markers = _collectionMarkersJs.Markers;
         }, function (_collectionClustersJs) {
@@ -103,8 +101,8 @@ System.register(['backbone', 'google-maps', './../collection/Markers.js', './../
                     key: 'addMarkerToCluster',
                     value: function addMarkerToCluster(marker) {
                         var clusters = this.get('clusters'),
-                            cluster = clusters.find(function (cluster) {
-                            return cluster.contains(marker);
+                            cluster = clusters.find(function (c) {
+                            return c.contains(marker);
                         });
 
                         // Create new cluster
@@ -126,12 +124,12 @@ System.register(['backbone', 'google-maps', './../collection/Markers.js', './../
                 }, {
                     key: 'removeMarkerFromCluster',
                     value: function removeMarkerFromCluster(marker) {
-                        var cluster = this.get('clusters').find(function (cluster) {
-                            return cluster.get('markers').contains(marker);
+                        var cluster = this.get('clusters').find(function (c) {
+                            return c.get('markers').contains(marker);
                         });
 
                         if (undefined === cluster) {
-                            throw 'Marker not found on any cluster (Map.removeMarkerFromCluster())';
+                            throw new Error('Marker not found on any cluster (Map.removeMarkerFromCluster())');
                         }
 
                         cluster.removeMarker(marker);

@@ -64,6 +64,10 @@ System.register(['google-maps', 'underscore', 'backbone', './../google/Projectio
                         });
                         projectionHelper.setMap(this.model.get('gmap'));
                     }
+
+                    /**
+                     * All is initialized and ready to use
+                     */
                 }, {
                     key: 'ready',
                     value: function ready() {
@@ -77,12 +81,13 @@ System.register(['google-maps', 'underscore', 'backbone', './../google/Projectio
                     }
 
                     /**
-                     * @param {Cluster} cluster
+                     * This method must be implemented by the class that extends this class.
+                     * The method get one argument, the cluster that is added.
                      */
                 }, {
                     key: 'addCluster',
-                    value: function addCluster(cluster) {
-                        throw 'The addCluster method must be implemented';
+                    value: function addCluster() {
+                        throw new Error('The addCluster method must be implemented');
                     }
 
                     /**
@@ -99,8 +104,8 @@ System.register(['google-maps', 'underscore', 'backbone', './../google/Projectio
                      * @param {Array} previous
                      */
                 }, {
-                    key: 'removeMarkers',
-                    value: function removeMarkers(clusters, previous) {
+                    key: 'removeClusters',
+                    value: function removeClusters(clusters, previous) {
                         var _this2 = this;
 
                         _.each(previous.previousModels, function (cluster) {
@@ -116,13 +121,22 @@ System.register(['google-maps', 'underscore', 'backbone', './../google/Projectio
                     value: function render() {
                         var _this3 = this;
 
-                        var gmap = new google.maps.Map(this.el, _.extend({}, {
+                        var zoomed = false,
+                            gmap = new google.maps.Map(this.el, _.extend({}, {
                             zoom: this.model.get('zoom'),
                             center: this.model.get('center')
                         }, this.mapOptions));
 
+                        // The zoom_changed event is fired to fast, the calculation of the latLng to pixels can be done when the bounds are changed.
                         google.maps.event.addListener(gmap, 'zoom_changed', function () {
-                            _this3.model.reindex();
+                            zoomed = true;
+                        });
+
+                        google.maps.event.addListener(gmap, 'bounds_changed', function () {
+                            if (zoomed) {
+                                _this3.model.reindex();
+                                zoomed = false;
+                            }
                         });
 
                         // Create the google map instance and store it in the model

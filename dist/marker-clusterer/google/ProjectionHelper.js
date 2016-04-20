@@ -25,12 +25,18 @@ System.register(['google-maps', './../helper/Point.js'], function (_export) {
             ProjectionHelper = (function (_google$maps$OverlayView) {
                 _inherits(ProjectionHelper, _google$maps$OverlayView);
 
+                /**
+                 * Constructor
+                 */
+
                 function ProjectionHelper() {
                     _classCallCheck(this, ProjectionHelper);
 
                     _get(Object.getPrototypeOf(ProjectionHelper.prototype), 'constructor', this).call(this);
 
                     this.latLng = new google.maps.LatLng(0, 0);
+
+                    // eslint-disable-next-line no-underscore-dangle
                     this.div_ = document.createElement('div');
                 }
 
@@ -68,26 +74,43 @@ System.register(['google-maps', './../helper/Point.js'], function (_export) {
                     value: function onDrawn(callback) {
                         this.listener = callback;
                     }
+
+                    /**
+                     * Create the html
+                     */
                 }, {
                     key: 'draw',
                     value: function draw() {
+                        // eslint-disable-next-line no-underscore-dangle
                         this.div_.style.left = 0;
+
+                        // eslint-disable-next-line no-underscore-dangle
                         this.div_.style.top = 0;
 
                         if (undefined !== this.listener) {
                             this.listener.call(null, this.getProjection());
                         }
                     }
+
+                    /**
+                     * Executed when the element is added to the DOM
+                     */
                 }, {
                     key: 'onAdd',
                     value: function onAdd() {
                         var panes = this.getPanes();
 
+                        // eslint-disable-next-line no-underscore-dangle
                         panes.floatPane.appendChild(this.div_);
                     }
+
+                    /**
+                     * Executed when the element is removed from the DOM
+                     */
                 }, {
                     key: 'onRemove',
                     value: function onRemove() {
+                        // eslint-disable-next-line no-underscore-dangle
                         this.div_.parentNode.removeChild(this.div_);
                     }
                 }]);
