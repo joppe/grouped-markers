@@ -44,6 +44,12 @@ export class AbstractMap extends Backbone.View {
         this.listenTo(clusters, 'add', this.addCluster);
         this.listenTo(clusters, 'remove', this.removeCluster);
         this.listenTo(clusters, 'reset', this.removeClusters);
+        this.listenTo(this.model, 'change:zoom', () => {
+            window.clearTimeout(this.timeoutId);
+            this.timeoutId = window.setTimeout(() => {
+                this.model.reindex();
+            }, 100);
+        });
 
         this.model.reindex();
     }
@@ -77,22 +83,15 @@ export class AbstractMap extends Backbone.View {
      * @returns {AbstractMap}
      */
     render() {
-        let zoomed = false,
-            gmap = new google.maps.Map(this.el, _.extend({}, {
-                zoom: this.model.get('zoom'),
-                center: this.model.get('center')
-            }, this.mapOptions));
+        let gmap = new google.maps.Map(this.el, _.extend({}, {
+            zoom: this.model.get('zoom'),
+            center: this.model.get('center')
+        }, this.mapOptions));
 
-        // The zoom_changed event is fired to fast, the calculation of the latLng to pixels can be done when the bounds are changed.
         google.maps.event.addListener(gmap, 'zoom_changed', () => {
-            zoomed = true;
-        });
-
-        google.maps.event.addListener(gmap, 'bounds_changed', () => {
-            if (zoomed) {
-                this.model.reindex();
-                zoomed = false;
-            }
+            this.model.set({
+                zoom: gmap.getZoom()
+            });
         });
 
         // Create the google map instance and store it in the model
