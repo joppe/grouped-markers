@@ -71,11 +71,19 @@ System.register(['google-maps', 'underscore', 'backbone', './../google/Projectio
                 }, {
                     key: 'ready',
                     value: function ready() {
+                        var _this2 = this;
+
                         var clusters = this.model.get('clusters');
 
                         this.listenTo(clusters, 'add', this.addCluster);
                         this.listenTo(clusters, 'remove', this.removeCluster);
                         this.listenTo(clusters, 'reset', this.removeClusters);
+                        this.listenTo(this.model, 'change:zoom', function () {
+                            window.clearTimeout(_this2.timeoutId);
+                            _this2.timeoutId = window.setTimeout(function () {
+                                _this2.model.reindex();
+                            }, 100);
+                        });
 
                         this.model.reindex();
                     }
@@ -106,10 +114,10 @@ System.register(['google-maps', 'underscore', 'backbone', './../google/Projectio
                 }, {
                     key: 'removeClusters',
                     value: function removeClusters(clusters, previous) {
-                        var _this2 = this;
+                        var _this3 = this;
 
                         _.each(previous.previousModels, function (cluster) {
-                            _this2.removeMarker(cluster);
+                            _this3.removeMarker(cluster);
                         });
                     }
 
@@ -119,24 +127,17 @@ System.register(['google-maps', 'underscore', 'backbone', './../google/Projectio
                 }, {
                     key: 'render',
                     value: function render() {
-                        var _this3 = this;
+                        var _this4 = this;
 
-                        var zoomed = false,
-                            gmap = new google.maps.Map(this.el, _.extend({}, {
+                        var gmap = new google.maps.Map(this.el, _.extend({}, {
                             zoom: this.model.get('zoom'),
                             center: this.model.get('center')
                         }, this.mapOptions));
 
-                        // The zoom_changed event is fired to fast, the calculation of the latLng to pixels can be done when the bounds are changed.
                         google.maps.event.addListener(gmap, 'zoom_changed', function () {
-                            zoomed = true;
-                        });
-
-                        google.maps.event.addListener(gmap, 'bounds_changed', function () {
-                            if (zoomed) {
-                                _this3.model.reindex();
-                                zoomed = false;
-                            }
+                            _this4.model.set({
+                                zoom: gmap.getZoom()
+                            });
                         });
 
                         // Create the google map instance and store it in the model

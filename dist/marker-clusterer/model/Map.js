@@ -40,7 +40,8 @@ System.register(['backbone', './../collection/Markers.js', './../collection/Clus
                             gmap: null,
                             projectionHelper: null,
                             markers: new Markers(),
-                            clusters: new Clusters()
+                            clusters: new Clusters(),
+                            gridSize: 100
                         };
                     }
 
@@ -107,7 +108,9 @@ System.register(['backbone', './../collection/Markers.js', './../collection/Clus
 
                         // Create new cluster
                         if (undefined === cluster) {
-                            cluster = new Cluster({}, {
+                            cluster = new Cluster({
+                                gridSize: this.get('gridSize')
+                            }, {
                                 projectionHelper: this.get('projectionHelper')
                             });
                             cluster.addMarker(marker);
